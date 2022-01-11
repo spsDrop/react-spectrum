@@ -48,9 +48,9 @@ export function Tag<T>(props: SpectrumTagProps<T>) {
 
   return (
     <div
-      role={tagProps.role}>
+      {...tagProps}>
       <div
-        {...mergeProps(tagProps, hoverProps, focusProps, labelProps, otherProps)}
+        {...mergeProps(hoverProps, focusProps, labelProps, otherProps)}
         role="gridcell"
         className={classNames(
           styles,

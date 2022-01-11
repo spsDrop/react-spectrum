@@ -45,7 +45,8 @@ function TagGroup<T extends object>(props: SpectrumTagGroupProps<T>, ref: DOMRef
       let childNodes = [{
         ...item,
         index: 0,
-        type: 'cell'
+        type: 'cell',
+        key: `cell-${item.key}`
       }];
 
       // add column of clear buttons if removable
@@ -64,7 +65,8 @@ function TagGroup<T extends object>(props: SpectrumTagGroupProps<T>, ref: DOMRef
       }
 
       return {
-        type: 'item',
+        ...item,
+        hasChildNodes: true,
         childNodes
       };
     })
@@ -85,7 +87,8 @@ function TagGroup<T extends object>(props: SpectrumTagGroupProps<T>, ref: DOMRef
   });
   let {gridProps} = useGrid({
     ...props,
-    keyboardDelegate
+    keyboardDelegate,
+    focusMode: 'row'
   }, state, domRef);
 
   return (
@@ -109,7 +112,7 @@ function TagGroup<T extends object>(props: SpectrumTagGroupProps<T>, ref: DOMRef
           key={item.key}
           item={item}
           state={state}
-          isDisabled={isDisabled || state.disabledKeys.has(item?.childNodes[0]?.key)}
+          isDisabled={isDisabled || state.disabledKeys.has(item.key)}
           isRemovable={isRemovable}
           onRemove={onRemove}>
           {item.childNodes[0].rendered}
