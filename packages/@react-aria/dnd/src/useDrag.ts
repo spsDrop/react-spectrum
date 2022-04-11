@@ -83,13 +83,13 @@ export function useDrag(options: DragOptions): DragResult {
     if (typeof options.renderPreview === 'function') {
       let preview = options.renderPreview(items);
       if (preview) {
-        // Create an off-screen div to render the preview into.
+        // Create an on-screen div to render the preview into.
         let node = document.createElement('div');
-        node.style.zIndex = '-100';
-        node.style.position = 'absolute';
-        node.style.top = '0';
-        node.style.left = '-100000px';
-        document.body.appendChild(node);
+        // node.style.zIndex = '-100';
+        // node.style.position = 'absolute';
+        // node.style.top = '0';
+        // node.style.left = '-100000px';
+        document.getElementsByClassName('react-spectrum-story')[0].appendChild(node);
 
         // Call renderPreview to get a JSX element, and render it into the div with React DOM.
         ReactDOM.render(preview, node);
