@@ -11,6 +11,7 @@
  */
 
 import {action} from '@storybook/addon-actions';
+import {Flex} from '@react-spectrum/layout';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Switch} from '../';
@@ -69,6 +70,25 @@ storiesOf('Switch', module)
   .add(
     'no label',
     () => renderNoLabel({'aria-label': 'This switch has no visible label'})
+  )
+  .add(
+    'WHCM test',
+    () => (
+      <Flex direction="column" gap="size-200">
+        <Flex gap="size-200">
+          <Switch>Option</Switch>
+          <Switch isDisabled>Option</Switch>
+        </Flex>
+        <Flex gap="size-200">
+          <Switch isSelected isEmphasized>Option</Switch>
+          <Switch isSelected isEmphasized isDisabled>Option</Switch>
+        </Flex>
+        <Flex gap="size-200">
+          <Switch isSelected>Option</Switch>
+          <Switch isSelected isDisabled>Option</Switch>
+        </Flex>
+      </Flex>
+      )
   );
 
 function render(props = {}) {
