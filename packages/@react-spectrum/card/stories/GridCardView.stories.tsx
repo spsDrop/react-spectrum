@@ -108,6 +108,17 @@ export const DynamicCards: DynamicCardViewStory = {
   name: 'default Grid layout with initialized layout'
 };
 
+export const DynamicCardsWithDrillDown: DynamicCardViewStory = {
+  render: (args) => <DynamicCardView {...args} />,
+  args: {
+    items: items,
+    onOpenItem(item) {
+      console.log(item)
+    }
+  },
+  name: 'default Grid layout with initialized layout w/ drill down'
+};
+
 export const StaticCards: StaticCardViewStory = {
   render: (args) => <StaticCardView {...args} />,
   name: 'static card'

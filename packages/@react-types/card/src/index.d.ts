@@ -59,7 +59,8 @@ interface CardViewProps<T> extends CollectionBase<T>, MultipleSelection, Omit<As
   cardOrientation?: Orientation,
   isQuiet?: boolean,
   renderEmptyState?: () => ReactNode,
-  loadingState?: LoadingState
+  loadingState?: LoadingState,
+  onOpenItem?: (item: T) => void
 }
 
 export interface AriaCardViewProps<T> extends CardViewProps<T>, DOMProps, AriaLabelingProps {}

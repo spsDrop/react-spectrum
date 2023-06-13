@@ -39,7 +39,8 @@ function CardView<T extends object>(props: SpectrumCardViewProps<T>, ref: DOMRef
     layout,
     loadingState,
     onLoadMore,
-    cardOrientation = 'vertical'
+    cardOrientation = 'vertical',
+    onOpenItem,
   } = props;
 
   let collator = useCollator({usage: 'search', sensitivity: 'base'});
@@ -134,7 +135,7 @@ function CardView<T extends object>(props: SpectrumCardViewProps<T>, ref: DOMRef
         {(type, item) => {
           if (type === 'item') {
             return (
-              <InternalCard item={item} />
+              <InternalCard item={item} onOpen={onOpenItem} />
             );
           } else if (type === 'loader') {
             return (
@@ -177,9 +178,10 @@ function CenteredWrapper({children}) {
   );
 }
 
-function InternalCard(props) {
+function InternalCard<T extends object>(props: {item: Node<T>, onOpen?:(itemValue: T) => void}) {
   let {
-    item
+    item,
+    onOpen
   } = props;
   let cellNode = [...item.childNodes][0];
   let {state, cardOrientation, isQuiet, layout} = useCardViewContext();
@@ -214,6 +216,11 @@ function InternalCard(props) {
     {onKeyDown}
   );
 
+  if (onOpen) {
+    rowProps.onClick = () => onOpen(item.value);
+    rowProps.onPointerDown = () => onOpen(item.value);
+  }
+
   if (layoutType === 'grid' || layoutType === 'gallery') {
     isQuiet = true;
   }
@@ -227,7 +234,7 @@ function InternalCard(props) {
   // the cards in the CardView is handled by useGrid => useSelectableCollection instead.
   delete gridCellProps.onKeyDownCapture;
   return (
-    <div {...rowProps} ref={rowRef} className={classNames(styles, 'spectrum-CardView-row')}>
+    <div {...rowProps}  ref={rowRef} className={classNames(styles, 'spectrum-CardView-row')}>
       <CardBase
         ref={cellRef}
         articleProps={gridCellProps}
