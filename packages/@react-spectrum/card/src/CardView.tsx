@@ -216,9 +216,10 @@ function InternalCard<T extends object>(props: {item: Node<T>, onOpen?:(itemValu
     {onKeyDown}
   );
 
+  // TODO: Only allow drill down if not selected?
   if (onOpen) {
     rowProps.onClick = () => onOpen(item.value);
-    rowProps.onPointerDown = () => onOpen(item.value);
+    rowProps.onPointerDown = undefined;
   }
 
   if (layoutType === 'grid' || layoutType === 'gallery') {

@@ -112,9 +112,7 @@ export const DynamicCardsWithDrillDown: DynamicCardViewStory = {
   render: (args) => <DynamicCardView {...args} />,
   args: {
     items: items,
-    onOpenItem(item) {
-      console.log(item)
-    }
+    onOpenItem: action('onOpenItem')
   },
   name: 'default Grid layout with initialized layout w/ drill down'
 };
